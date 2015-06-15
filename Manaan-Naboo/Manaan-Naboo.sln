@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameProject", "GameProject\GameProject\GameProject.csproj", "{FD688AFD-A888-4754-99AB-F15B8D83F9E3}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "GameProjectContent", "GameProject\GameProjectContent\GameProjectContent.contentproj", "{43CCAA8E-0A99-49AB-B35C-ECA0D2E8CC4D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD688AFD-A888-4754-99AB-F15B8D83F9E3}.Debug|x86.ActiveCfg = Debug|x86
+		{FD688AFD-A888-4754-99AB-F15B8D83F9E3}.Debug|x86.Build.0 = Debug|x86
+		{FD688AFD-A888-4754-99AB-F15B8D83F9E3}.Release|x86.ActiveCfg = Release|x86
+		{FD688AFD-A888-4754-99AB-F15B8D83F9E3}.Release|x86.Build.0 = Release|x86
+		{43CCAA8E-0A99-49AB-B35C-ECA0D2E8CC4D}.Debug|x86.ActiveCfg = Debug|x86
+		{43CCAA8E-0A99-49AB-B35C-ECA0D2E8CC4D}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
