@@ -1,2 +1,3 @@
 C:\Users\konsantin\Documents\Visual Studio 2013\Projects\Manaan-Naboo\GameProject\GameProjectContent\obj\x86\Debug\GameProjectContent.contentprojResolveAssemblyReference.cache
 C:\Users\Developer\Desktop\Manaan-Naboo\GameProject\GameProjectContent\obj\x86\Debug\GameProjectContent.contentprojResolveAssemblyReference.cache
+C:\Users\Developer\Desktop\Softuni Repositories\MANAAN-NABOO\trunk\Manaan-Naboo\GameProject\GameProjectContent\obj\x86\Debug\GameProjectContent.contentprojResolveAssemblyReference.cache

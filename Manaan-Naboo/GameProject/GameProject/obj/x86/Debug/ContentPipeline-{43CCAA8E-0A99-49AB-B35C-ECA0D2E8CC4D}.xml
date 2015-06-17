@@ -8,10 +8,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Developer\Desktop\Manaan-Naboo\GameProject\GameProjectContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Developer\Desktop\Manaan-Naboo\GameProject\GameProject\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Developer\Desktop\Manaan-Naboo\GameProject\GameProject\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Developer\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Developer\Desktop\Softuni Repositories\MANAAN-NABOO\trunk\Manaan-Naboo\GameProject\GameProjectContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Developer\Desktop\Softuni Repositories\MANAAN-NABOO\trunk\Manaan-Naboo\GameProject\GameProject\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Developer\Desktop\Softuni Repositories\MANAAN-NABOO\trunk\Manaan-Naboo\GameProject\GameProject\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Developer\Desktop\Softuni Repositories\MANAAN-NABOO\trunk\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

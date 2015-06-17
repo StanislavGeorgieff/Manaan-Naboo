@@ -6,7 +6,7 @@ using System.Text;
 namespace GameProject
 {
     // Used for directly for enemies
-    interface ILivingBeing
+    public interface ILivingBeing
     {
         int Health { get; set; }
         int Strength { get; set; }
