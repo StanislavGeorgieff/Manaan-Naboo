@@ -75,8 +75,10 @@
     <Compile Include="Archer.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="CollectableItems.cs" />
+    <Compile Include="Enumerations\CollectableItemType.cs" />
     <Compile Include="Enumerations\Direction.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="Enumerations\ProjectileType.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="ICharacter.cs" />
     <Compile Include="IEnemy.cs" />
