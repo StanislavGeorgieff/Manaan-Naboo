@@ -1,0 +1,6 @@
+C:\Users\Developer\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\GameProject.exe
+C:\Users\Developer\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\GameProject.pdb
+C:\Users\Developer\Desktop\Manaan-Naboo\GameProject\GameProject\obj\x86\Debug\GameProject.csprojResolveAssemblyReference.cache
+C:\Users\Developer\Desktop\Manaan-Naboo\GameProject\GameProject\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Developer\Desktop\Manaan-Naboo\GameProject\GameProject\obj\x86\Debug\GameProject.exe
+C:\Users\Developer\Desktop\Manaan-Naboo\GameProject\GameProject\obj\x86\Debug\GameProject.pdb

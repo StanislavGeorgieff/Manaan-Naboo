@@ -5,13 +5,10 @@ using System.Text;
 
 namespace GameProject
 {
-    public interface ICharacter
+    public interface ICharacter : ILivingBeing
     {
-        int Health { get; set; }
-        int Strength { get; set; }
         int Experience { get; set; }
         int Gold { get; set; }
         List<GameObject> Inventar { get; set; }
-
     }
 }

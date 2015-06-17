@@ -6,21 +6,18 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameProject
 {
-    public abstract class Character : GameObject, ICharacter
+    public class Enemy : GameObject, IEnemy
     {
-        protected Character(int x, int y, Texture2D texture, int health, int strength) 
+        public Enemy(int x, int y, Texture2D texture, int health, int strength)
             : base(x, y, texture)
         {
             this.Health = health;
             this.Strength = strength;
-            this.Gold = 250;
-            this.Experience = 0;
+            this.Dir = Direction.Up;
         }
 
         public int Health { get; set; }
         public int Strength { get; set; }
-        public int Experience { get; set; }
-        public int Gold { get; set; }
-        public List<GameObject> Inventar { get; set; }
+        public Direction Dir { get; set; }
     }
 }
