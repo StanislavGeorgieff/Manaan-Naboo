@@ -11,8 +11,13 @@ namespace TileEngine
 {
     public static class Tile
     {
-        public static int TileWidth = 48;
-        public static int TileHeight = 48;
+        public static int TileWidth = 33;
+        public static int TileHeight = 27;
+
+        public static int TileStepX = 33 + 19;
+        public static int TileStepY = 14;
+
+        static public int OddRowXOffset = 19 + 7;
 
         public static Texture2D TileSetTexture { set; get; }
 

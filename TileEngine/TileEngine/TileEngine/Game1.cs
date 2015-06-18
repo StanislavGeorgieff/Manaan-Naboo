@@ -20,8 +20,12 @@ namespace TileEngine
         SpriteBatch spriteBatch;
 
         TileMap myMap = new TileMap();
-        private int squaresAcross = 18;
-        private int squaresDown = 11;
+        private int squaresAcross = 17;
+        private int squaresDown = 37;
+
+        private int baseOffsetX = -14;
+        private int baseOffsetY = -14;
+
 
         public Game1()
         {
@@ -53,7 +57,7 @@ namespace TileEngine
 
             // TODO: use this.Content to load your game content here
 
-            Tile.TileSetTexture = Content.Load<Texture2D>("Textures/Tilesets/tileset2");
+            Tile.TileSetTexture = Content.Load<Texture2D>("Textures/Tilesets/tileset3");
         }
 
         /// <summary>
@@ -73,7 +77,7 @@ namespace TileEngine
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.Escape))
                 this.Exit();
 
             // TODO: Add your update logic here
@@ -82,21 +86,21 @@ namespace TileEngine
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.Left))
             {
-                Camera.Location.X = MathHelper.Clamp(Camera.Location.X - 2, 0, (myMap.MapWidth - squaresAcross) * Tile.TileWidth);
+                Camera.Location.X = MathHelper.Clamp(Camera.Location.X - 2, 0, (myMap.MapWidth - squaresAcross) * Tile.TileStepX);
             }
             if (ks.IsKeyDown(Keys.Right))
             {
-                Camera.Location.X = MathHelper.Clamp(Camera.Location.X + 2, 0, (myMap.MapWidth - squaresAcross) * Tile.TileWidth);
+                Camera.Location.X = MathHelper.Clamp(Camera.Location.X + 2, 0, (myMap.MapWidth - squaresAcross) * Tile.TileStepX);
             }
 
             if (ks.IsKeyDown(Keys.Up))
             {
-                Camera.Location.Y = MathHelper.Clamp(Camera.Location.Y - 2, 0, (myMap.MapHeight - squaresDown) * Tile.TileHeight);
+                Camera.Location.Y = MathHelper.Clamp(Camera.Location.Y - 2, 0, (myMap.MapHeight - squaresDown) * Tile.TileStepY);
             }
 
             if (ks.IsKeyDown(Keys.Down))
             {
-                Camera.Location.Y = MathHelper.Clamp(Camera.Location.Y + 2, 0, (myMap.MapHeight - squaresDown) * Tile.TileHeight);
+                Camera.Location.Y = MathHelper.Clamp(Camera.Location.Y + 2, 0, (myMap.MapHeight - squaresDown) * Tile.TileStepY);
             }
 
 
@@ -109,29 +113,41 @@ namespace TileEngine
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
 
 
             //Here we are drawing out map. First thing to do is calculating the starting point of the drawing, based on the camera's position.
             spriteBatch.Begin();
-            Vector2 firstSquare = new Vector2(Camera.Location.X / Tile.TileWidth, Camera.Location.Y / Tile.TileHeight);
+            Vector2 firstSquare = new Vector2(Camera.Location.X / Tile.TileStepX, Camera.Location.Y / Tile.TileStepY);
             int firstX = (int)firstSquare.X;
             int firstY = (int)firstSquare.Y;
 
-            Vector2 squareOffset = new Vector2(Camera.Location.X % Tile.TileWidth, Camera.Location.Y % Tile.TileHeight);
+            Vector2 squareOffset = new Vector2(Camera.Location.X % Tile.TileStepX, Camera.Location.Y % Tile.TileStepY);
             int offsetX = (int)squareOffset.X;
             int offsetY = (int)squareOffset.Y;
 
             for (int y = 0; y < squaresDown; y++)
             {
+                int rowOffset = 0;
+                if ((firstY + y) % 2 == 1)
+                {
+                    rowOffset = Tile.OddRowXOffset;
+                }
+
                 for (int x = 0; x < squaresAcross; x++)
                 {
 
                     foreach (int tileID in myMap.Rows[y + firstY].Columns[x + firstX].BaseTiles)
                     {
-                        spriteBatch.Draw(Tile.TileSetTexture, new Rectangle((x * Tile.TileWidth) - offsetX, (y * Tile.TileHeight) - offsetY, Tile.TileWidth, Tile.TileHeight), Tile.GetSourceRectangle(tileID), Color.White);
+                        spriteBatch.Draw(Tile.TileSetTexture, new Rectangle(
+                            (x * Tile.TileStepX) - offsetX + rowOffset + baseOffsetX,
+                            (y * Tile.TileStepY) - offsetY + baseOffsetY,
+                            Tile.TileWidth,
+                            Tile.TileHeight),
+                            Tile.GetSourceRectangle(tileID), 
+                            Color.White);
                     }
                 }
             }
