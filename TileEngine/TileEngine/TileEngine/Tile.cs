@@ -11,11 +11,17 @@ namespace TileEngine
 {
     public static class Tile
     {
+        public static int TileWidth = 48;
+        public static int TileHeight = 48;
+
         public static Texture2D TileSetTexture { set; get; }
 
         public static Rectangle GetSourceRectangle(int tileIndex)
         {
-            return new Rectangle(tileIndex * 32, 0, 32, 32);
+            int tileY = tileIndex / (TileSetTexture.Width / TileWidth);
+            int tileX = tileIndex % (TileSetTexture.Width / TileWidth);
+
+            return new Rectangle(tileX * TileWidth, tileY * TileHeight, TileWidth, TileHeight);
         }
     }
 }
