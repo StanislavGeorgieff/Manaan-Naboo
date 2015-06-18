@@ -10,11 +10,18 @@ namespace TileEngine
         public MapCell(int tileId)
         {
             this.BaseTiles = new List<int>();
+            this.HeighTiles = new List<int>();
+            this.TopperTiles = new List<int>();
             this.TileId = tileId;
 
         }
 
+        public List<int> HeighTiles { get; set; }
+
         public List<int> BaseTiles { get; set; }
+
+        public List<int> TopperTiles { get; set; }
+
 
         public int TileId 
         {
@@ -38,6 +45,16 @@ namespace TileEngine
         public void AddBaseTile(int tileId)
         {
             this.BaseTiles.Add(tileId);
+        }
+
+        public void AddHeightTile(int tileId)
+        {
+            this.HeighTiles.Add(tileId);
+        }
+
+        public void AddTopperTile(int tileId)
+        {
+            this.TopperTiles.Add(tileId);
         }
     }
 }
