@@ -13,6 +13,8 @@ namespace TileEngine
             this.HeighTiles = new List<int>();
             this.TopperTiles = new List<int>();
             this.TileId = tileId;
+            this.Walkable = true;
+            this.SlopeMap = -1;
 
         }
 
@@ -21,6 +23,10 @@ namespace TileEngine
         public List<int> BaseTiles { get; set; }
 
         public List<int> TopperTiles { get; set; }
+
+        public int SlopeMap { get; set; }
+
+        public bool Walkable { get; set; }
 
 
         public int TileId 

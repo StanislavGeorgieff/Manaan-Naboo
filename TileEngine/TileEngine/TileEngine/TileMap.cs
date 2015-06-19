@@ -13,15 +13,18 @@ namespace TileEngine
 
         private Texture2D mouseMap;
 
+        private Texture2D slopeMaps;
+
         public List<MapRow> Rows { get; set; }
 
         public int MapWidth { get; set; }
 
         public int MapHeight { get; set; }
 
-        public TileMap(Texture2D mouseMap)
+        public TileMap(Texture2D mouseMap, Texture2D slopeMap)
         {
             this.mouseMap = mouseMap;
+            this.slopeMaps = slopeMap;
             // The Constructor initialise a map by filling our map matrix with default values (in this case: index 0 in tilesheet.
 
             this.MapWidth = MapWidthInCells;
@@ -147,12 +150,49 @@ namespace TileEngine
             Rows[19].Columns[7].AddHeightTile(55);
             Rows[19].Columns[7].AddHeightTile(52);
 
-        
-         
+
+
+            Rows[15].Columns[5].Walkable = false;
+            Rows[16].Columns[6].Walkable = false;
+
+
+            Rows[12].Columns[9].AddHeightTile(34);
+            Rows[11].Columns[9].AddHeightTile(34);
+            Rows[11].Columns[8].AddHeightTile(34);
+            Rows[10].Columns[9].AddHeightTile(34);
+
+            Rows[12].Columns[8].AddTopperTile(31);
+            Rows[12].Columns[8].SlopeMap = 0;
+            Rows[13].Columns[8].AddTopperTile(31);
+            Rows[13].Columns[8].SlopeMap = 0;
+
+            Rows[12].Columns[10].AddTopperTile(32);
+            Rows[12].Columns[10].SlopeMap = 1;
+            Rows[13].Columns[9].AddTopperTile(32);
+            Rows[13].Columns[9].SlopeMap = 1;
+
+            Rows[14].Columns[9].AddTopperTile(30);
+            Rows[14].Columns[9].SlopeMap = 4;
                              
         }
 
         // A method to convert a pixel-based location on the map into a map cell refernce.
+
+        public Point WorldToMapCell(Vector2 worldPoint)
+        {
+            return WorldToMapCell(new Point((int)worldPoint.X, (int)worldPoint.Y));
+        }
+
+        public MapCell GetCellAtWorldPoint(Point worldPoint)
+        {
+            Point mapPoint = WorldToMapCell(worldPoint);
+            return Rows[mapPoint.Y].Columns[mapPoint.X];
+        }
+
+        public MapCell GetCellAtWorldPoint(Vector2 worldPoint)
+        {
+            return GetCellAtWorldPoint(new Point((int)worldPoint.X, (int)worldPoint.Y));
+        }
 
         public Point WorldToMapCell(Point worldPoint, out Point localPoint)
         {
@@ -215,6 +255,55 @@ namespace TileEngine
         {
             Point dummy;
             return WorldToMapCell(worldPoint, out dummy);
+        }
+
+
+        public int GetSlopeMapHeight(Point localPixel, int slopeMap)
+        {
+
+            Point texturePoint = new Point(slopeMap * mouseMap.Width + localPixel.X, localPixel.Y);
+
+            Color[] slopeColor = new Color[1];
+
+            if (new Rectangle(0, 0, slopeMaps.Width, slopeMaps.Height).Contains(texturePoint.X, texturePoint.Y))
+            {
+                slopeMaps.GetData(0, new Rectangle(texturePoint.X, texturePoint.Y, 1, 1), slopeColor, 0, 1);
+
+                int offset = (int)(((float)(255 - slopeColor[0].R) / 255f) * Tile.HeightTileOffset);
+
+                return offset;
+            }
+
+            return 0;
+        }
+
+
+        public int GetSlopeHeightAtWorldPoint(Point worldPoint)
+        {
+            Point localPoint;
+            Point mapPoint = WorldToMapCell(worldPoint, out localPoint);
+            int slopeMap = Rows[mapPoint.Y].Columns[mapPoint.X].SlopeMap;
+
+            return GetSlopeMapHeight(localPoint, slopeMap);
+        }
+
+        public int GetSlopeHeightAtWorldPoint(Vector2 worldPoint)
+        {
+            return GetSlopeHeightAtWorldPoint(new Point((int)worldPoint.X, (int)worldPoint.Y));
+        }
+
+        public int GetOverallHeight(Point worldPoint)
+        {
+            Point mapCellPoint = WorldToMapCell(worldPoint);
+            int height = Rows[mapCellPoint.Y].Columns[mapCellPoint.X].HeighTiles.Count * Tile.HeightTileOffset;
+            height += GetSlopeHeightAtWorldPoint(worldPoint);
+
+            return height;
+        }
+
+        public int GetOverallHeight(Vector2 worldPoint)
+        {
+            return GetOverallHeight(new Point((int)worldPoint.X, (int)worldPoint.Y));
         }
     }
 }

@@ -74,7 +74,8 @@ namespace TileEngine
             Tile.TileSetTexture = Content.Load<Texture2D>(@"Textures/Tilesets/tileset4");
             pericles6 = Content.Load<SpriteFont>(@"Fonts/Pericles6");
 
-            myMap = new TileMap(Content.Load<Texture2D>(@"Textures/TileSets/mousemap"));
+            myMap = new TileMap(Content.Load<Texture2D>(@"Textures/TileSets/mousemap"),
+                                Content.Load<Texture2D>(@"Textures/TileSets/slopemaps"));
             hilight = Content.Load<Texture2D>(@"Textures/TileSets/hilight");
 
             //Initializing the camera.
@@ -144,6 +145,7 @@ namespace TileEngine
             GetKeyboardInput();
 
 
+
             float vladX = MathHelper.Clamp(
                 vlad.Position.X, 0 + vlad.DrawOffset.X, Camera.WorldWidth);
             float vladY = MathHelper.Clamp(
@@ -186,71 +188,43 @@ namespace TileEngine
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
-
-
-            //Here we are drawing out map. First thing to do is calculating the starting point of the drawing, based on the camera's position and offset.
-
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            DrawTheMap();
-
-            // Here we draw the player.
-            Point vladStandingOn = myMap.WorldToMapCell(new Point((int) vlad.Position.X, (int) vlad.Position.Y));
-            int vladHeight = myMap.Rows[vladStandingOn.Y].Columns[vladStandingOn.X].HeighTiles.Count*
-                             Tile.HeightTileOffset;
-            vlad.Draw(spriteBatch, 0, - vladHeight);
-
-            // Here we draw hilighted tile under the cursor.
-            DrawHiLightTile();
-
-            spriteBatch.End();
-
-            base.Draw(gameTime);
-        }
-
-        
-        private void DrawTheMap()
-        {
             Vector2 firstSquare = new Vector2(Camera.Location.X / Tile.TileStepX, Camera.Location.Y / Tile.TileStepY);
-            int firstX = (int) firstSquare.X;
-            int firstY = (int) firstSquare.Y;
+            int firstX = (int)firstSquare.X;
+            int firstY = (int)firstSquare.Y;
 
             Vector2 squareOffset = new Vector2(Camera.Location.X % Tile.TileStepX, Camera.Location.Y % Tile.TileStepY);
-            int offsetX = (int) squareOffset.X;
-            int offsetY = (int) squareOffset.Y;
+            int offsetX = (int)squareOffset.X;
+            int offsetY = (int)squareOffset.Y;
 
-            float maxDepth = ((myMap.MapWidth + 1) + ((myMap.MapHeight + 1)*Tile.TileWidth))*10;
+            float maxdepth = ((myMap.MapWidth + 1) * ((myMap.MapHeight + 1) * Tile.TileWidth)) / 10;
+            float depthOffset;
+
+            Point vladMapPoint = myMap.WorldToMapCell(new Point((int)vlad.Position.X, (int)vlad.Position.Y));
 
             for (int y = 0; y < squaresDown; y++)
             {
                 int rowOffset = 0;
-                if ((firstY + y)%2 == 1)
-                {
+                if ((firstY + y) % 2 == 1)
                     rowOffset = Tile.OddRowXOffset;
-                }
 
                 for (int x = 0; x < squaresAcross; x++)
                 {
-                    int mapX = (firstX + x);
-                    int mapY = (firstY + y);
-                    float depthOffset = 0.7f - ((mapX + (mapY*Tile.TileWidth))/maxDepth);
+                    int mapx = (firstX + x);
+                    int mapy = (firstY + y);
+                    depthOffset = 0.7f - ((mapx + (mapy * Tile.TileWidth)) / maxdepth);
 
-                    //Drawing out Base Tiles. This is the ground, the things that are always further away from the camera.
-
-                    //If mapX and mapY are located outside the map, we simply exit the loop and continue on
-                    if ((mapX >= myMap.MapWidth) || (mapY >= myMap.MapHeight))
+                    if ((mapx >= myMap.MapWidth) || (mapy >= myMap.MapHeight))
                         continue;
 
-                    foreach (int baseTileId in myMap.Rows[mapY].Columns[mapX].BaseTiles)
+                    foreach (int tileID in myMap.Rows[mapy].Columns[mapx].BaseTiles)
                     {
                         spriteBatch.Draw(
                             Tile.TileSetTexture,
                             Camera.WorldToScreen(
-                                new Vector2(
-                                    (mapX * Tile.TileStepX) + rowOffset,
-                                    mapY * Tile.TileStepY)),
-                            Tile.GetSourceRectangle(baseTileId),
+                                new Vector2((mapx * Tile.TileStepX) + rowOffset, mapy * Tile.TileStepY)),
+                            Tile.GetSourceRectangle(tileID),
                             Color.White,
                             0.0f,
                             Vector2.Zero,
@@ -258,20 +232,17 @@ namespace TileEngine
                             SpriteEffects.None,
                             1.0f);
                     }
-
-                    //Now we draw our Height Tiles.
-
                     int heightRow = 0;
 
-                    foreach (int heightId in myMap.Rows[mapY].Columns[mapX].HeighTiles)
+                    foreach (int tileID in myMap.Rows[mapy].Columns[mapx].HeighTiles)
                     {
                         spriteBatch.Draw(
                             Tile.TileSetTexture,
                             Camera.WorldToScreen(
                                 new Vector2(
-                                    (mapX * Tile.TileStepX) + rowOffset,
-                                    mapY * Tile.TileStepY - (heightRow * Tile.HeightTileOffset))),
-                            Tile.GetSourceRectangle(heightId),
+                                    (mapx * Tile.TileStepX) + rowOffset,
+                                    mapy * Tile.TileStepY - (heightRow * Tile.HeightTileOffset))),
+                            Tile.GetSourceRectangle(tileID),
                             Color.White,
                             0.0f,
                             Vector2.Zero,
@@ -281,18 +252,13 @@ namespace TileEngine
                         heightRow++;
                     }
 
-
-                    //Here we draw the Topper Tiles.
-
-                    foreach (int topperId in myMap.Rows[y + firstY].Columns[x + firstX].TopperTiles)
+                    foreach (int tileID in myMap.Rows[y + firstY].Columns[x + firstX].TopperTiles)
                     {
                         spriteBatch.Draw(
                             Tile.TileSetTexture,
                             Camera.WorldToScreen(
-                                new Vector2(
-                                    (mapX * Tile.TileStepX) + rowOffset,
-                                    mapY * Tile.TileStepY)),
-                            Tile.GetSourceRectangle(topperId),
+                                new Vector2((mapx * Tile.TileStepX) + rowOffset, mapy * Tile.TileStepY)),
+                            Tile.GetSourceRectangle(tileID),
                             Color.White,
                             0.0f,
                             Vector2.Zero,
@@ -301,25 +267,50 @@ namespace TileEngine
                             depthOffset - ((float)heightRow * heightRowDepthMod));
                     }
 
-                    //Here we put a small extra, which will help us to know the coordinates of a tile on the map,
-
+                    if ((mapx == vladMapPoint.X) && (mapy == vladMapPoint.Y))
+                    {
+                        vlad.DrawDepth = depthOffset - (float)(heightRow + 2) * heightRowDepthMod;
+                    }
                     if (showCoordinates)
                     {
-                        spriteBatch.DrawString(pericles6,
-                            String.Format("{0},{1}", (x + firstX), (y + firstY)),
+                        spriteBatch.DrawString(pericles6, (x + firstX).ToString() + ", " + (y + firstY).ToString(),
+                            new Vector2((x*Tile.TileStepX) - offsetX + rowOffset + baseOffsetX + 24,
+                                (y*Tile.TileStepY) - offsetY + baseOffsetY + 48), Color.White, 0f, Vector2.Zero,
+                            1.0f, SpriteEffects.None, 0.0f);
+                    }
+                }
+            }
+
+            vlad.Draw(spriteBatch, 0, -myMap.GetOverallHeight(vlad.Position));
+
+            Vector2 hilightLoc = Camera.ScreenToWorld(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+            Point hilightPoint = myMap.WorldToMapCell(new Point((int)hilightLoc.X, (int)hilightLoc.Y));
+
+            int hilightrowOffset = 0;
+            if ((hilightPoint.Y) % 2 == 1)
+                hilightrowOffset = Tile.OddRowXOffset;
+
+            spriteBatch.Draw(
+                            hilight,
+                            Camera.WorldToScreen(
                             new Vector2(
-                                (x*Tile.TileStepX) - offsetX + rowOffset + baseOffsetX + 24,
-                                (y*Tile.TileStepY) - offsetY + baseOffsetY + 48),
-                            Color.White,
-                            0f,
+                                (hilightPoint.X * Tile.TileStepX) + hilightrowOffset,
+                                (hilightPoint.Y + 2) * Tile.TileStepY)),
+                            new Rectangle(0, 0, 64, 32),
+                            Color.White * 0.3f,
+                            0.0f,
                             Vector2.Zero,
                             1.0f,
                             SpriteEffects.None,
                             0.0f);
-                    }
-                }
-            }
+            spriteBatch.End();
+            // TODO: Add your drawing code here
+
+            base.Draw(gameTime);
         }
+
+        
+        
 
         private void DrawHiLightTile()
         {
@@ -432,6 +423,17 @@ namespace TileEngine
                 moveDir = new Vector2(2, 1);
                 animation = "WalkSouthEast";
                 moveVector += new Vector2(2, 1);
+            }
+
+
+            if (myMap.GetCellAtWorldPoint(vlad.Position + moveDir).Walkable == false)
+            {
+                moveDir = Vector2.Zero;
+            }
+
+            if (Math.Abs(myMap.GetOverallHeight(vlad.Position) - myMap.GetOverallHeight(vlad.Position + moveDir)) > 10)
+            {
+                moveDir = Vector2.Zero;
             }
 
             if (moveDir.Length() != 0)
