@@ -133,6 +133,23 @@ namespace TileEngine
             Rows[15].Columns[5].AddTopperTile(91);
             Rows[16].Columns[6].AddTopperTile(94);
 
+
+
+            //adding some more tiles
+
+            Rows[14].Columns[10].AddHeightTile(55);
+            Rows[14].Columns[10].AddHeightTile(54);
+            Rows[14].Columns[10].AddHeightTile(55);
+            Rows[14].Columns[10].AddHeightTile(77);
+
+            Rows[19].Columns[7].AddHeightTile(55);
+            Rows[19].Columns[7].AddHeightTile(54);
+            Rows[19].Columns[7].AddHeightTile(55);
+            Rows[19].Columns[7].AddHeightTile(52);
+
+        
+         
+                             
         }
 
         // A method to convert a pixel-based location on the map into a map cell refernce.

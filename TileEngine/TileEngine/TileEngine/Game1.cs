@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -8,6 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using TileEngine.Sprites;
 
 namespace TileEngine
 {
@@ -33,6 +35,8 @@ namespace TileEngine
         private Texture2D hilight;
 
         private bool showCoordinates;
+
+        private SpriteAnimation vlad;
 
 
         public Game1()
@@ -82,6 +86,36 @@ namespace TileEngine
             Camera.DisplayOffset = new Vector2(baseOffsetX, baseOffsetY);
 
             showCoordinates = true;
+
+
+            // Here we initialize the player animation.
+
+            vlad = new SpriteAnimation(Content.Load<Texture2D>(@"Textures/Characters/T_Vlad_Sword_Walking_48x48"));
+
+            vlad.AddAnimation("WalkEast", 0, 48 * 0, 48, 48, 8, 0.1f);
+            vlad.AddAnimation("WalkNorth", 0, 48 * 1, 48, 48, 8, 0.1f);
+            vlad.AddAnimation("WalkNorthEast", 0, 48 * 2, 48, 48, 8, 0.1f);
+            vlad.AddAnimation("WalkNorthWest", 0, 48 * 3, 48, 48, 8, 0.1f);
+            vlad.AddAnimation("WalkSouth", 0, 48 * 4, 48, 48, 8, 0.1f);
+            vlad.AddAnimation("WalkSouthEast", 0, 48 * 5, 48, 48, 8, 0.1f);
+            vlad.AddAnimation("WalkSouthWest", 0, 48 * 6, 48, 48, 8, 0.1f);
+            vlad.AddAnimation("WalkWest", 0, 48 * 7, 48, 48, 8, 0.1f);
+
+
+            vlad.AddAnimation("IdleEast", 0, 48 * 0, 48, 48, 1, 0.2f);
+            vlad.AddAnimation("IdleNorth", 0, 48 * 1, 48, 48, 1, 0.2f);
+            vlad.AddAnimation("IdleNorthEast", 0, 48 * 2, 48, 48, 1, 0.2f);
+            vlad.AddAnimation("IdleNorthWest", 0, 48 * 3, 48, 48, 1, 0.2f);
+            vlad.AddAnimation("IdleSouth", 0, 48 * 4, 48, 48, 1, 0.2f);
+            vlad.AddAnimation("IdleSouthEast", 0, 48 * 5, 48, 48, 1, 0.2f);
+            vlad.AddAnimation("IdleSouthWest", 0, 48 * 6, 48, 48, 1, 0.2f);
+            vlad.AddAnimation("IdleWest", 0, 48 * 7, 48, 48, 1, 0.2f);
+
+            vlad.Position = new Vector2(100, 100);
+            vlad.DrawOffset = new Vector2(-24, -38);
+            vlad.CurrentAnimation = "WalkEast";
+            vlad.IsAnimating = true;
+
         }
 
         /// <summary>
@@ -110,6 +144,36 @@ namespace TileEngine
             GetKeyboardInput();
 
 
+            float vladX = MathHelper.Clamp(
+                vlad.Position.X, 0 + vlad.DrawOffset.X, Camera.WorldWidth);
+            float vladY = MathHelper.Clamp(
+                vlad.Position.Y, 0 + vlad.DrawOffset.Y, Camera.WorldHeight);
+            vlad.Position = new Vector2(vladX, vladY);
+
+            Vector2 testPosition = Camera.WorldToScreen(vlad.Position);
+
+            if (testPosition.X < 100)
+            {
+                Camera.Move(new Vector2(testPosition.X - 100, 0));
+            }
+            if (testPosition.X > (Camera.ViewWidth - 100))
+            {
+                Camera.Move(new Vector2(testPosition.X - (Camera.ViewWidth - 100), 0));
+            }
+
+            if (testPosition.Y < 100)
+            {
+                Camera.Move(new Vector2(0, testPosition.Y - 100));
+            }
+
+            if (testPosition.Y > (Camera.ViewHeight - 100))
+            {
+                Camera.Move(new Vector2(0, testPosition.Y - (Camera.ViewHeight - 100)));
+            }
+
+            vlad.Update(gameTime);
+
+
             base.Update(gameTime);
         }
 
@@ -130,6 +194,12 @@ namespace TileEngine
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
             DrawTheMap();
+
+            // Here we draw the player.
+            Point vladStandingOn = myMap.WorldToMapCell(new Point((int) vlad.Position.X, (int) vlad.Position.Y));
+            int vladHeight = myMap.Rows[vladStandingOn.Y].Columns[vladStandingOn.X].HeighTiles.Count*
+                             Tile.HeightTileOffset;
+            vlad.Draw(spriteBatch, 0, - vladHeight);
 
             // Here we draw hilighted tile under the cursor.
             DrawHiLightTile();
@@ -277,27 +347,104 @@ namespace TileEngine
 
         private void GetKeyboardInput()
         {
+            //KeyboardState ks = Keyboard.GetState();
+
+            //if (ks.IsKeyDown(Keys.Left))
+            //{
+            //    Camera.Move(new Vector2(-2, 0));
+            //}
+
+            //if (ks.IsKeyDown(Keys.Right))
+            //{
+            //    Camera.Move(new Vector2(2, 0));
+            //}
+
+            //if (ks.IsKeyDown(Keys.Up))
+            //{
+            //    Camera.Move(new Vector2(0, -2));
+            //}
+
+            //if (ks.IsKeyDown(Keys.Down))
+            //{
+            //    Camera.Move(new Vector2(0, 2));
+            //}
+
+
+            //We are adding a new method, because now we have a character.
+
+            Vector2 moveVector = Vector2.Zero;
+            Vector2 moveDir = Vector2.Zero;
+            string animation = "";
+
             KeyboardState ks = Keyboard.GetState();
 
-            if (ks.IsKeyDown(Keys.Left))
+            if (ks.IsKeyDown(Keys.NumPad7))
             {
-                Camera.Move(new Vector2(-2, 0));
+                moveDir = new Vector2(-2, -1);
+                animation = "WalkNorthWest";
+                moveVector += new Vector2(-2, -1);
             }
 
-            if (ks.IsKeyDown(Keys.Right))
+            if (ks.IsKeyDown(Keys.NumPad8))
             {
-                Camera.Move(new Vector2(2, 0));
+                moveDir = new Vector2(0, -1);
+                animation = "WalkNorth";
+                moveVector += new Vector2(0, -1);
             }
 
-            if (ks.IsKeyDown(Keys.Up))
+            if (ks.IsKeyDown(Keys.NumPad9))
             {
-                Camera.Move(new Vector2(0, -2));
+                moveDir = new Vector2(2, -1);
+                animation = "WalkNorthEast";
+                moveVector += new Vector2(2, -1);
             }
 
-            if (ks.IsKeyDown(Keys.Down))
+            if (ks.IsKeyDown(Keys.NumPad4))
             {
-                Camera.Move(new Vector2(0, 2));
+                moveDir = new Vector2(-2, 0);
+                animation = "WalkWest";
+                moveVector += new Vector2(-2, 0);
             }
+
+            if (ks.IsKeyDown(Keys.NumPad6))
+            {
+                moveDir = new Vector2(2, 0);
+                animation = "WalkEast";
+                moveVector += new Vector2(2, 0);
+            }
+
+            if (ks.IsKeyDown(Keys.NumPad1))
+            {
+                moveDir = new Vector2(-2, 1);
+                animation = "WalkSouthWest";
+                moveVector += new Vector2(-2, 1);
+            }
+
+            if (ks.IsKeyDown(Keys.NumPad2))
+            {
+                moveDir = new Vector2(0, 1);
+                animation = "WalkSouth";
+                moveVector += new Vector2(0, 1);
+            }
+
+            if (ks.IsKeyDown(Keys.NumPad3))
+            {
+                moveDir = new Vector2(2, 1);
+                animation = "WalkSouthEast";
+                moveVector += new Vector2(2, 1);
+            }
+
+            if (moveDir.Length() != 0)
+            {
+                vlad.MoveBy((int)moveDir.X, (int)moveDir.Y);
+                if (vlad.CurrentAnimation != animation)
+                    vlad.CurrentAnimation = animation;
+            }
+            else
+            {
+                vlad.CurrentAnimation = "Idle" + vlad.CurrentAnimation.Substring(4);
+            }
+
         }
     }
 }

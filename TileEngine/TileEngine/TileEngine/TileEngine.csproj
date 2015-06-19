@@ -78,6 +78,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Sprites\FrameAnimation.cs" />
+    <Compile Include="Sprites\MobileSprite.cs" />
+    <Compile Include="Sprites\SpriteAnimation.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileMap.cs" />
   </ItemGroup>
