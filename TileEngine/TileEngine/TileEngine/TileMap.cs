@@ -1,6 +1,8 @@
 ﻿//A tilemap is nothing more than a collection of map cells.
 
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TileEngine
 {
@@ -9,14 +11,17 @@ namespace TileEngine
         private const int MapWidthInCells = 50;
         private const int MapHeightInCells = 50;
 
+        private Texture2D mouseMap;
+
         public List<MapRow> Rows { get; set; }
 
         public int MapWidth { get; set; }
 
         public int MapHeight { get; set; }
 
-        public TileMap()
+        public TileMap(Texture2D mouseMap)
         {
+            this.mouseMap = mouseMap;
             // The Constructor initialise a map by filling our map matrix with default values (in this case: index 0 in tilesheet.
 
             this.MapWidth = MapWidthInCells;
@@ -128,6 +133,71 @@ namespace TileEngine
             Rows[15].Columns[5].AddTopperTile(91);
             Rows[16].Columns[6].AddTopperTile(94);
 
+        }
+
+        // A method to convert a pixel-based location on the map into a map cell refernce.
+
+        public Point WorldToMapCell(Point worldPoint, out Point localPoint)
+        {
+            Point mapCell = new Point(
+                (int)(worldPoint.X / mouseMap.Width),
+                ((int)(worldPoint.Y / mouseMap.Height)) * 2);
+
+            int localPointX = worldPoint.X % mouseMap.Width;
+            int localPointY = worldPoint.Y % mouseMap.Height;
+
+            int dx = 0;
+            int dy = 0;
+
+            uint[] myUint = new uint[1];
+
+            if (new Rectangle(0, 0, mouseMap.Width, mouseMap.Height).Contains(localPointX, localPointY))
+            {
+                mouseMap.GetData(0, new Rectangle(localPointX, localPointY, 1, 1), myUint, 0, 1);
+
+                if (myUint[0] == 0xFF0000FF) // Red
+                {
+                    dx = -1;
+                    dy = -1;
+                    localPointX = localPointX + (mouseMap.Width / 2);
+                    localPointY = localPointY + (mouseMap.Height / 2);
+                }
+
+                if (myUint[0] == 0xFF00FF00) // Green
+                {
+                    dx = -1;
+                    localPointX = localPointX + (mouseMap.Width / 2);
+                    dy = 1;
+                    localPointY = localPointY - (mouseMap.Height / 2);
+                }
+
+                if (myUint[0] == 0xFF00FFFF) // Yellow
+                {
+                    dy = -1;
+                    localPointX = localPointX - (mouseMap.Width / 2);
+                    localPointY = localPointY + (mouseMap.Height / 2);
+                }
+
+                if (myUint[0] == 0xFFFF0000) // Blue
+                {
+                    dy = +1;
+                    localPointX = localPointX - (mouseMap.Width / 2);
+                    localPointY = localPointY - (mouseMap.Height / 2);
+                }    
+            }
+            mapCell.X += dx;
+            mapCell.Y += dy - 2;
+
+            localPoint = new Point(localPointX, localPointY);
+
+            return mapCell;
+        }
+
+        // An overload that simply returns the point
+        public Point WorldToMapCell(Point worldPoint)
+        {
+            Point dummy;
+            return WorldToMapCell(worldPoint, out dummy);
         }
     }
 }

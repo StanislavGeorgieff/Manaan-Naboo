@@ -19,7 +19,7 @@ namespace TileEngine
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        TileMap myMap = new TileMap();
+        private TileMap myMap;
         private int squaresAcross = 17;
         private int squaresDown = 37;
 
@@ -29,6 +29,8 @@ namespace TileEngine
         float heightRowDepthMod = 0.0000001f;
 
         private SpriteFont pericles6;
+
+        private Texture2D hilight;
 
         private bool showCoordinates;
 
@@ -49,6 +51,8 @@ namespace TileEngine
         {
             // TODO: Add your initialization logic here
 
+            this.IsMouseVisible = true;
+
             base.Initialize();
         }
 
@@ -65,6 +69,17 @@ namespace TileEngine
 
             Tile.TileSetTexture = Content.Load<Texture2D>(@"Textures/Tilesets/tileset4");
             pericles6 = Content.Load<SpriteFont>(@"Fonts/Pericles6");
+
+            myMap = new TileMap(Content.Load<Texture2D>(@"Textures/TileSets/mousemap"));
+            hilight = Content.Load<Texture2D>(@"Textures/TileSets/hilight");
+
+            //Initializing the camera.
+
+            Camera.ViewWidth = this.graphics.PreferredBackBufferWidth;
+            Camera.ViewHeight = this.graphics.PreferredBackBufferHeight;
+            Camera.WorldWidth = ((myMap.MapWidth - 2)*Tile.TileStepX);
+            Camera.WorldHeight = ((myMap.MapHeight - 2)*Tile.TileStepY);
+            Camera.DisplayOffset = new Vector2(baseOffsetX, baseOffsetY);
 
             showCoordinates = true;
         }
@@ -92,29 +107,12 @@ namespace TileEngine
             // TODO: Add your update logic here
 
             //Now we want to move around. The camera logic is here.
-            KeyboardState ks = Keyboard.GetState();
-            if (ks.IsKeyDown(Keys.Left))
-            {
-                Camera.Location.X = MathHelper.Clamp(Camera.Location.X - 2, 0, (myMap.MapWidth - squaresAcross) * Tile.TileStepX);
-            }
-            if (ks.IsKeyDown(Keys.Right))
-            {
-                Camera.Location.X = MathHelper.Clamp(Camera.Location.X + 2, 0, (myMap.MapWidth - squaresAcross) * Tile.TileStepX);
-            }
-
-            if (ks.IsKeyDown(Keys.Up))
-            {
-                Camera.Location.Y = MathHelper.Clamp(Camera.Location.Y - 2, 0, (myMap.MapHeight - squaresDown) * Tile.TileStepY);
-            }
-
-            if (ks.IsKeyDown(Keys.Down))
-            {
-                Camera.Location.Y = MathHelper.Clamp(Camera.Location.Y + 2, 0, (myMap.MapHeight - squaresDown) * Tile.TileStepY);
-            }
+            GetKeyboardInput();
 
 
             base.Update(gameTime);
         }
+
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -131,47 +129,62 @@ namespace TileEngine
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
+            DrawTheMap();
+
+            // Here we draw hilighted tile under the cursor.
+            DrawHiLightTile();
+
+            spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+
+        
+        private void DrawTheMap()
+        {
             Vector2 firstSquare = new Vector2(Camera.Location.X / Tile.TileStepX, Camera.Location.Y / Tile.TileStepY);
-            int firstX = (int)firstSquare.X;
-            int firstY = (int)firstSquare.Y;
+            int firstX = (int) firstSquare.X;
+            int firstY = (int) firstSquare.Y;
 
             Vector2 squareOffset = new Vector2(Camera.Location.X % Tile.TileStepX, Camera.Location.Y % Tile.TileStepY);
-            int offsetX = (int)squareOffset.X;
-            int offsetY = (int)squareOffset.Y;
+            int offsetX = (int) squareOffset.X;
+            int offsetY = (int) squareOffset.Y;
 
-            float maxDepth = ((myMap.MapWidth + 1) + ((myMap.MapHeight + 1) * Tile.TileWidth)) * 10;
-            float depthOffset;
+            float maxDepth = ((myMap.MapWidth + 1) + ((myMap.MapHeight + 1)*Tile.TileWidth))*10;
 
             for (int y = 0; y < squaresDown; y++)
             {
                 int rowOffset = 0;
-                if ((firstY + y) % 2 == 1)
+                if ((firstY + y)%2 == 1)
                 {
                     rowOffset = Tile.OddRowXOffset;
                 }
 
                 for (int x = 0; x < squaresAcross; x++)
                 {
-
                     int mapX = (firstX + x);
                     int mapY = (firstY + y);
-                    depthOffset = 0.7f - ((mapX + (mapY * Tile.TileWidth)) / maxDepth);
+                    float depthOffset = 0.7f - ((mapX + (mapY*Tile.TileWidth))/maxDepth);
 
                     //Drawing out Base Tiles. This is the ground, the things that are always further away from the camera.
 
-                    foreach (int baseTile in myMap.Rows[mapY].Columns[mapX].BaseTiles)
+                    //If mapX and mapY are located outside the map, we simply exit the loop and continue on
+                    if ((mapX >= myMap.MapWidth) || (mapY >= myMap.MapHeight))
+                        continue;
+
+                    foreach (int baseTileId in myMap.Rows[mapY].Columns[mapX].BaseTiles)
                     {
                         spriteBatch.Draw(
                             Tile.TileSetTexture,
-                            new Rectangle(
-                                (x * Tile.TileStepX) - offsetX + rowOffset + baseOffsetX,
-                                (y * Tile.TileStepY) - offsetY + baseOffsetY,
-                                Tile.TileWidth,
-                                Tile.TileHeight),
-                            Tile.GetSourceRectangle(baseTile), 
+                            Camera.WorldToScreen(
+                                new Vector2(
+                                    (mapX * Tile.TileStepX) + rowOffset,
+                                    mapY * Tile.TileStepY)),
+                            Tile.GetSourceRectangle(baseTileId),
                             Color.White,
                             0.0f,
-                            Vector2.Zero, 
+                            Vector2.Zero,
+                            1.0f,
                             SpriteEffects.None,
                             1.0f);
                     }
@@ -180,40 +193,41 @@ namespace TileEngine
 
                     int heightRow = 0;
 
-                    foreach (int heightTile in myMap.Rows[mapY].Columns[mapX].HeighTiles)
+                    foreach (int heightId in myMap.Rows[mapY].Columns[mapX].HeighTiles)
                     {
                         spriteBatch.Draw(
                             Tile.TileSetTexture,
-                            new Rectangle(
-                                (x * Tile.TileStepX) - offsetX + rowOffset + baseOffsetX,
-                                (y * Tile.TileStepY) - offsetY + baseOffsetY - (heightRow * Tile.HeightTileOffset),
-                                Tile.TileWidth,
-                                Tile.TileHeight),
-                            Tile.GetSourceRectangle(heightTile),
+                            Camera.WorldToScreen(
+                                new Vector2(
+                                    (mapX * Tile.TileStepX) + rowOffset,
+                                    mapY * Tile.TileStepY - (heightRow * Tile.HeightTileOffset))),
+                            Tile.GetSourceRectangle(heightId),
                             Color.White,
                             0.0f,
-                            Vector2.Zero, SpriteEffects.None, 
+                            Vector2.Zero,
+                            1.0f,
+                            SpriteEffects.None,
                             depthOffset - ((float)heightRow * heightRowDepthMod));
-
                         heightRow++;
                     }
 
 
                     //Here we draw the Topper Tiles.
 
-                    foreach (int topperTile in myMap.Rows[y + firstY].Columns[x + firstX].TopperTiles)
+                    foreach (int topperId in myMap.Rows[y + firstY].Columns[x + firstX].TopperTiles)
                     {
                         spriteBatch.Draw(
                             Tile.TileSetTexture,
-                            new Rectangle(
-                                (x * Tile.TileStepX) - offsetX + rowOffset + baseOffsetX,
-                                (y * Tile.TileStepY) - offsetY + baseOffsetY - (heightRow * Tile.HeightTileOffset),
-                                Tile.TileWidth, Tile.TileHeight),
-                            Tile.GetSourceRectangle(topperTile),
+                            Camera.WorldToScreen(
+                                new Vector2(
+                                    (mapX * Tile.TileStepX) + rowOffset,
+                                    mapY * Tile.TileStepY)),
+                            Tile.GetSourceRectangle(topperId),
                             Color.White,
                             0.0f,
-                            Vector2.Zero, 
-                            SpriteEffects.None, 
+                            Vector2.Zero,
+                            1.0f,
+                            SpriteEffects.None,
                             depthOffset - ((float)heightRow * heightRowDepthMod));
                     }
 
@@ -235,10 +249,55 @@ namespace TileEngine
                     }
                 }
             }
+        }
 
-            spriteBatch.End();
+        private void DrawHiLightTile()
+        {
+            Vector2 hilightLoc = Camera.ScreenToWorld(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+            Point hilightPoint = myMap.WorldToMapCell(new Point((int)hilightLoc.X, (int)hilightLoc.Y));
 
-            base.Draw(gameTime);
+            int hilightrowOffset = 0;
+            if ((hilightPoint.Y) % 2 == 1)
+                hilightrowOffset = Tile.OddRowXOffset;
+
+            spriteBatch.Draw(
+                hilight,
+                Camera.WorldToScreen(
+                    new Vector2(
+                        (hilightPoint.X * Tile.TileStepX) + hilightrowOffset,
+                        (hilightPoint.Y + 2) * Tile.TileStepY)),
+                new Rectangle(0, 0, 64, 32),
+                Color.White * 0.3f,
+                0.0f,
+                Vector2.Zero,
+                1.0f,
+                SpriteEffects.None,
+                0.0f);
+        }
+
+        private void GetKeyboardInput()
+        {
+            KeyboardState ks = Keyboard.GetState();
+
+            if (ks.IsKeyDown(Keys.Left))
+            {
+                Camera.Move(new Vector2(-2, 0));
+            }
+
+            if (ks.IsKeyDown(Keys.Right))
+            {
+                Camera.Move(new Vector2(2, 0));
+            }
+
+            if (ks.IsKeyDown(Keys.Up))
+            {
+                Camera.Move(new Vector2(0, -2));
+            }
+
+            if (ks.IsKeyDown(Keys.Down))
+            {
+                Camera.Move(new Vector2(0, 2));
+            }
         }
     }
 }
