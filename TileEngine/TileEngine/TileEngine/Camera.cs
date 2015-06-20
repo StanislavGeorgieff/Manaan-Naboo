@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TileEngine
 {
@@ -46,6 +47,15 @@ namespace TileEngine
         public static void Move(Vector2 offset)
         {
             Location += offset;
+        }
+
+        public static void Initialize(GraphicsDeviceManager graphics, TileMap myMap, int baseOffsetX, int baseOffsetY)
+        {
+            ViewWidth = graphics.PreferredBackBufferWidth;
+            ViewHeight = graphics.PreferredBackBufferHeight;
+            WorldWidth = ((myMap.MapWidth - 2) * Tile.TileStepX);
+            WorldHeight = ((myMap.MapHeight - 2) * Tile.TileStepY);
+            DisplayOffset = new Vector2(baseOffsetX, baseOffsetY);
         }
     }
 }

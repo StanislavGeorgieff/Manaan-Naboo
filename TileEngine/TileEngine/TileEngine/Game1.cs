@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Resources;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -18,12 +21,13 @@ namespace TileEngine
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         private TileMap myMap;
-        private int squaresAcross = 17;
-        private int squaresDown = 37;
+        private int squaresAcross = 22;
+        private int squaresDown = 41;
 
         private int baseOffsetX = -32;
         private int baseOffsetY = -64;
@@ -42,6 +46,9 @@ namespace TileEngine
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 600;
+
             Content.RootDirectory = "Content";
         }
 
@@ -54,7 +61,7 @@ namespace TileEngine
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            
             this.IsMouseVisible = true;
 
             base.Initialize();
@@ -80,18 +87,16 @@ namespace TileEngine
 
             //Initializing the camera.
 
-            Camera.ViewWidth = this.graphics.PreferredBackBufferWidth;
-            Camera.ViewHeight = this.graphics.PreferredBackBufferHeight;
-            Camera.WorldWidth = ((myMap.MapWidth - 2)*Tile.TileStepX);
-            Camera.WorldHeight = ((myMap.MapHeight - 2)*Tile.TileStepY);
-            Camera.DisplayOffset = new Vector2(baseOffsetX, baseOffsetY);
+            Camera.Initialize(graphics, myMap, baseOffsetX, baseOffsetY);
 
-            showCoordinates = true;
+            showCoordinates = false;
 
 
             // Here we initialize the player animation.
 
-            vlad = new SpriteAnimation(Content.Load<Texture2D>(@"Textures/Characters/T_Vlad_Sword_Walking_48x48"));
+
+
+            vlad = new SpriteAnimation(Content.Load<Texture2D>(@"Textures/Characters/mage"));
 
             vlad.AddAnimation("WalkEast", 0, 48 * 0, 48, 48, 8, 0.1f);
             vlad.AddAnimation("WalkNorth", 0, 48 * 1, 48, 48, 8, 0.1f);
@@ -112,7 +117,18 @@ namespace TileEngine
             vlad.AddAnimation("IdleSouthWest", 0, 48 * 6, 48, 48, 1, 0.2f);
             vlad.AddAnimation("IdleWest", 0, 48 * 7, 48, 48, 1, 0.2f);
 
-            vlad.Position = new Vector2(100, 100);
+            vlad.AddAnimation("CastSpellEast", 0, 48 * 8, 48, 48, 13, 0.1f);
+            vlad.AddAnimation("CastSpellNorth", 0, 48 * 9, 48, 48, 13, 0.1f);
+            vlad.AddAnimation("CastSpellNorthEast", 0, 48 * 10, 48, 48, 13, 0.1f);
+            vlad.AddAnimation("CastSpellNorthWest", 0, 48 * 11, 48, 48, 13, 0.1f);
+            vlad.AddAnimation("CastSpellSouth", 0, 48 * 12, 48, 48, 13, 0.1f);
+            vlad.AddAnimation("CastSpellSouthEast", 0, 48 * 13, 48, 48, 13, 0.1f);
+            vlad.AddAnimation("CastSpellSouthWest", 0, 48 * 14, 48, 48, 13, 0.1f);
+            vlad.AddAnimation("CastSpellWest", 0, 48 * 15, 48, 48, 13, 0.1f);
+
+            
+
+            vlad.Position = new Vector2(500, 500);
             vlad.DrawOffset = new Vector2(-24, -38);
             vlad.CurrentAnimation = "WalkEast";
             vlad.IsAnimating = true;
@@ -141,43 +157,24 @@ namespace TileEngine
 
             // TODO: Add your update logic here
 
-            //Now we want to move around. The camera logic is here.
-            GetKeyboardInput();
+            //Now we want to move around. 
+            Vector2 moveVector;
+            Vector2 moveDirection;
+            string playerAnimation;
 
+            moveDirection = GetNextMove(out moveVector, out playerAnimation);
 
+            moveDirection = CheckIfPosibleMove(moveDirection); // If not posible returns Vector2.Zero
 
-            float vladX = MathHelper.Clamp(
-                vlad.Position.X, 0 + vlad.DrawOffset.X, Camera.WorldWidth);
-            float vladY = MathHelper.Clamp(
-                vlad.Position.Y, 0 + vlad.DrawOffset.Y, Camera.WorldHeight);
-            vlad.Position = new Vector2(vladX, vladY);
-
-            Vector2 testPosition = Camera.WorldToScreen(vlad.Position);
-
-            if (testPosition.X < 100)
-            {
-                Camera.Move(new Vector2(testPosition.X - 100, 0));
-            }
-            if (testPosition.X > (Camera.ViewWidth - 100))
-            {
-                Camera.Move(new Vector2(testPosition.X - (Camera.ViewWidth - 100), 0));
-            }
-
-            if (testPosition.Y < 100)
-            {
-                Camera.Move(new Vector2(0, testPosition.Y - 100));
-            }
-
-            if (testPosition.Y > (Camera.ViewHeight - 100))
-            {
-                Camera.Move(new Vector2(0, testPosition.Y - (Camera.ViewHeight - 100)));
-            }
+            MakeNextMove(vlad, playerAnimation, moveDirection);
 
             vlad.Update(gameTime);
 
 
             base.Update(gameTime);
         }
+
+        
 
 
         /// <summary>
@@ -273,7 +270,7 @@ namespace TileEngine
                     }
                     if (showCoordinates)
                     {
-                        spriteBatch.DrawString(pericles6, (x + firstX).ToString() + ", " + (y + firstY).ToString(),
+                        spriteBatch.DrawString(pericles6, (y + firstY).ToString() + ", " + (x + firstX).ToString(),
                             new Vector2((x*Tile.TileStepX) - offsetX + rowOffset + baseOffsetX + 24,
                                 (y*Tile.TileStepY) - offsetY + baseOffsetY + 48), Color.White, 0f, Vector2.Zero,
                             1.0f, SpriteEffects.None, 0.0f);
@@ -336,96 +333,79 @@ namespace TileEngine
                 0.0f);
         }
 
-        private void GetKeyboardInput()
+        
+
+        public Vector2 GetNextMove(out Vector2 moveVector, out string animation)
         {
-            //KeyboardState ks = Keyboard.GetState();
-
-            //if (ks.IsKeyDown(Keys.Left))
-            //{
-            //    Camera.Move(new Vector2(-2, 0));
-            //}
-
-            //if (ks.IsKeyDown(Keys.Right))
-            //{
-            //    Camera.Move(new Vector2(2, 0));
-            //}
-
-            //if (ks.IsKeyDown(Keys.Up))
-            //{
-            //    Camera.Move(new Vector2(0, -2));
-            //}
-
-            //if (ks.IsKeyDown(Keys.Down))
-            //{
-            //    Camera.Move(new Vector2(0, 2));
-            //}
-
-
-            //We are adding a new method, because now we have a character.
-
-            Vector2 moveVector = Vector2.Zero;
+            moveVector = Vector2.Zero;
             Vector2 moveDir = Vector2.Zero;
-            string animation = "";
+            animation = String.Empty;
 
             KeyboardState ks = Keyboard.GetState();
 
-            if (ks.IsKeyDown(Keys.NumPad7))
+            if(ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.A))
             {
                 moveDir = new Vector2(-2, -1);
                 animation = "WalkNorthWest";
                 moveVector += new Vector2(-2, -1);
             }
 
-            if (ks.IsKeyDown(Keys.NumPad8))
-            {
-                moveDir = new Vector2(0, -1);
-                animation = "WalkNorth";
-                moveVector += new Vector2(0, -1);
-            }
-
-            if (ks.IsKeyDown(Keys.NumPad9))
-            {
-                moveDir = new Vector2(2, -1);
-                animation = "WalkNorthEast";
-                moveVector += new Vector2(2, -1);
-            }
-
-            if (ks.IsKeyDown(Keys.NumPad4))
-            {
-                moveDir = new Vector2(-2, 0);
-                animation = "WalkWest";
-                moveVector += new Vector2(-2, 0);
-            }
-
-            if (ks.IsKeyDown(Keys.NumPad6))
-            {
-                moveDir = new Vector2(2, 0);
-                animation = "WalkEast";
-                moveVector += new Vector2(2, 0);
-            }
-
-            if (ks.IsKeyDown(Keys.NumPad1))
-            {
-                moveDir = new Vector2(-2, 1);
-                animation = "WalkSouthWest";
-                moveVector += new Vector2(-2, 1);
-            }
-
-            if (ks.IsKeyDown(Keys.NumPad2))
-            {
-                moveDir = new Vector2(0, 1);
-                animation = "WalkSouth";
-                moveVector += new Vector2(0, 1);
-            }
-
-            if (ks.IsKeyDown(Keys.NumPad3))
+            else if (ks.IsKeyDown(Keys.S) && ks.IsKeyDown(Keys.D))
             {
                 moveDir = new Vector2(2, 1);
                 animation = "WalkSouthEast";
                 moveVector += new Vector2(2, 1);
             }
 
+            else if (ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.D))
+            {
+                moveDir = new Vector2(2, -1);
+                animation = "WalkNorthEast";
+                moveVector += new Vector2(2, -1);
+            }
 
+            else if (ks.IsKeyDown(Keys.A) && ks.IsKeyDown(Keys.S))
+            {
+                moveDir = new Vector2(-2, 1);
+                animation = "WalkSouthWest";
+                moveVector += new Vector2(-2, 1);
+            }
+
+            else if (ks.IsKeyDown(Keys.W))
+            {
+                moveDir = new Vector2(0, -1);
+                animation = "WalkNorth";
+                moveVector += new Vector2(0, -1);
+            }
+
+            else if (ks.IsKeyDown(Keys.A))
+            {
+                moveDir = new Vector2(-2, 0);
+                animation = "WalkWest";
+                moveVector += new Vector2(-2, 0);
+            }
+
+            else if (ks.IsKeyDown(Keys.D))
+            {
+                moveDir = new Vector2(2, 0);
+                animation = "WalkEast";
+                moveVector += new Vector2(2, 0);
+            }
+  
+            else if (ks.IsKeyDown(Keys.S))
+            {
+                moveDir = new Vector2(0, 1);
+                animation = "WalkSouth";
+                moveVector += new Vector2(0, 1);
+            }
+
+            
+
+            return moveDir;
+        }
+
+        public Vector2 CheckIfPosibleMove(Vector2 moveDir)
+        {
             if (myMap.GetCellAtWorldPoint(vlad.Position + moveDir).Walkable == false)
             {
                 moveDir = Vector2.Zero;
@@ -436,17 +416,61 @@ namespace TileEngine
                 moveDir = Vector2.Zero;
             }
 
+            return moveDir;
+        }
+
+        public void MakeNextMove(SpriteAnimation playerAnimation, string animation, Vector2 moveDir)
+        {
             if (moveDir.Length() != 0)
             {
-                vlad.MoveBy((int)moveDir.X, (int)moveDir.Y);
-                if (vlad.CurrentAnimation != animation)
-                    vlad.CurrentAnimation = animation;
+                playerAnimation.MoveBy((int)moveDir.X, (int)moveDir.Y);
+                if (playerAnimation.CurrentAnimation != animation)
+                    playerAnimation.CurrentAnimation = animation;
             }
             else
             {
-                vlad.CurrentAnimation = "Idle" + vlad.CurrentAnimation.Substring(4);
+                playerAnimation.CurrentAnimation = "Idle" + playerAnimation.CurrentAnimation.Substring(4);
             }
 
+            
+            
+            // Test!!! Animated Spell Casting
+            KeyboardState ks = Keyboard.GetState();
+            if (ks.IsKeyDown(Keys.Space))
+            {
+                playerAnimation.CurrentAnimation = "CastSpell" + playerAnimation.CurrentAnimation.Substring(4);
+
+                
+            }
+            
+
+
+            float vladX = MathHelper.Clamp(
+                playerAnimation.Position.X, 0 + playerAnimation.DrawOffset.X, Camera.WorldWidth);
+            float vladY = MathHelper.Clamp(
+                playerAnimation.Position.Y, 0 + playerAnimation.DrawOffset.Y, Camera.WorldHeight);
+            playerAnimation.Position = new Vector2(vladX, vladY);
+
+            Vector2 testPosition = Camera.WorldToScreen(playerAnimation.Position);
+
+            if (testPosition.X < 100)
+            {
+                Camera.Move(new Vector2(testPosition.X - 100, 0));
+            }
+            if (testPosition.X > (Camera.ViewWidth - 100))
+            {
+                Camera.Move(new Vector2(testPosition.X - (Camera.ViewWidth - 100), 0));
+            }
+
+            if (testPosition.Y < 100)
+            {
+                Camera.Move(new Vector2(0, testPosition.Y - 100));
+            }
+
+            if (testPosition.Y > (Camera.ViewHeight - 100))
+            {
+                Camera.Move(new Vector2(0, testPosition.Y - (Camera.ViewHeight - 100)));
+            }
         }
     }
 }

@@ -8,8 +8,8 @@ namespace TileEngine
 {
     public class TileMap
     {
-        private const int MapWidthInCells = 50;
-        private const int MapHeightInCells = 50;
+        private const int MapWidthInCells = 100;
+        private const int MapHeightInCells = 100;
 
         private Texture2D mouseMap;
 
@@ -173,7 +173,68 @@ namespace TileEngine
 
             Rows[14].Columns[9].AddTopperTile(30);
             Rows[14].Columns[9].SlopeMap = 4;
-                             
+
+
+            Rows[20].Columns[10].AddHeightTile(155);
+            Rows[20].Columns[10].Walkable = false;
+            Rows[20].Columns[9].AddTopperTile(154);
+            Rows[20].Columns[11].AddTopperTile(156);
+            Rows[16].Columns[10].AddTopperTile(145);
+            Rows[16].Columns[9].AddTopperTile(144);
+            Rows[16].Columns[11].AddTopperTile(146);
+
+            Rows[3].Columns[16].AddHeightTile(129);
+            Rows[5].Columns[16].AddHeightTile(129);
+            Rows[7].Columns[16].AddHeightTile(129);
+            Rows[9].Columns[16].AddHeightTile(129);
+            Rows[11].Columns[16].AddHeightTile(129);
+            Rows[13].Columns[16].AddHeightTile(129);
+            Rows[15].Columns[16].AddHeightTile(129);
+            Rows[17].Columns[16].AddHeightTile(129);
+            Rows[19].Columns[16].AddHeightTile(129);
+            Rows[21].Columns[16].AddHeightTile(129);
+            Rows[23].Columns[16].AddHeightTile(129);
+            Rows[25].Columns[16].AddHeightTile(129);
+            Rows[27].Columns[16].AddHeightTile(129);
+            Rows[29].Columns[16].AddHeightTile(129);
+            Rows[31].Columns[16].AddHeightTile(129);
+
+            Rows[2].Columns[16].AddHeightTile(120);
+            Rows[4].Columns[16].AddHeightTile(121);
+            Rows[6].Columns[16].AddHeightTile(120);
+            Rows[8].Columns[16].AddHeightTile(121);
+            Rows[10].Columns[16].AddHeightTile(120);
+            Rows[12].Columns[16].AddHeightTile(121);
+            Rows[14].Columns[16].AddHeightTile(120);
+            Rows[16].Columns[16].AddHeightTile(121);
+            Rows[18].Columns[16].AddHeightTile(120);
+            Rows[20].Columns[16].AddHeightTile(121);
+            Rows[22].Columns[16].AddHeightTile(120);
+            Rows[24].Columns[16].AddHeightTile(121);
+            Rows[26].Columns[16].AddHeightTile(120);
+            Rows[28].Columns[16].AddHeightTile(121);
+            Rows[30].Columns[16].AddHeightTile(120);
+
+            Rows[2].Columns[17].AddHeightTile(120);
+            Rows[4].Columns[17].AddHeightTile(121);
+            Rows[6].Columns[17].AddHeightTile(120);
+            Rows[8].Columns[17].AddHeightTile(121);
+            Rows[10].Columns[17].AddHeightTile(120);
+            Rows[12].Columns[17].AddHeightTile(121);
+            Rows[14].Columns[17].AddHeightTile(120);
+            Rows[16].Columns[17].AddHeightTile(121);
+            Rows[18].Columns[17].AddHeightTile(120);
+            Rows[20].Columns[17].AddHeightTile(121);
+            Rows[22].Columns[17].AddHeightTile(120);
+            Rows[24].Columns[17].AddHeightTile(121);
+            Rows[26].Columns[17].AddHeightTile(120);
+            Rows[28].Columns[17].AddHeightTile(121);
+            Rows[30].Columns[17].AddHeightTile(120);
+            
+
+
+
+
         }
 
         // A method to convert a pixel-based location on the map into a map cell refernce.
@@ -246,6 +307,15 @@ namespace TileEngine
             mapCell.Y += dy - 2;
 
             localPoint = new Point(localPointX, localPointY);
+
+            while (mapCell.X < 0)
+            {
+                mapCell.X += 1;
+            }
+            while (mapCell.Y < 0)
+            {
+                mapCell.Y += 1;
+            }
 
             return mapCell;
         }
