@@ -1,6 +1,132 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Textures\Characters\mage.png</Source>
+      <Name>Textures\Characters\mage</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\Characters\mage.xnb</Output>
+      <Time>2015-06-21T11:29:40.5945639+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Characters\player.png</Source>
+      <Name>Textures\Characters\player</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\Characters\player.xnb</Output>
+      <Time>2015-06-21T11:29:40.717571+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Characters\player_48x48.png</Source>
+      <Name>Textures\Characters\player_48x48</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\Characters\player_48x48.xnb</Output>
+      <Time>2015-06-21T11:29:40.8335776+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Characters\T_Vlad_Sword_Walking_48x48.png</Source>
+      <Name>Textures\Characters\T_Vlad_Sword_Walking_48x48</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\Characters\T_Vlad_Sword_Walking_48x48.xnb</Output>
+      <Time>2015-06-21T11:29:40.9225827+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Characters\WhiteMage.png</Source>
+      <Name>Textures\Characters\WhiteMage</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\Characters\WhiteMage.xnb</Output>
+      <Time>2015-06-21T11:29:41.0565904+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\TileSets\FireBombSheet.png</Source>
+      <Name>Textures\TileSets\FireBombSheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\FireBombSheet.xnb</Output>
+      <Time>2015-06-21T11:29:41.1805975+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\TileSets\hilight.png</Source>
+      <Name>Textures\TileSets\hilight</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\hilight.xnb</Output>
+      <Time>2015-06-21T11:29:41.2235999+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\TileSets\mousemap.png</Source>
+      <Name>Textures\TileSets\mousemap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\mousemap.xnb</Output>
+      <Time>2015-06-21T11:29:41.2876036+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\TileSets\slopemaps.png</Source>
+      <Name>Textures\TileSets\slopemaps</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\slopemaps.xnb</Output>
+      <Time>2015-06-21T11:29:41.3266058+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\TileSets\tileset.png</Source>
+      <Name>Textures\TileSets\tileset</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\tileset.xnb</Output>
+      <Time>2015-06-21T11:29:41.3766087+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\TileSets\tileset2.png</Source>
+      <Name>Textures\TileSets\tileset2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\tileset2.xnb</Output>
+      <Time>2015-06-21T11:29:41.4396123+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\TileSets\tileset3.png</Source>
+      <Name>Textures\TileSets\tileset3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\tileset3.xnb</Output>
+      <Time>2015-06-21T11:29:41.4936154+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\TileSets\tileset4.png</Source>
+      <Name>Textures\TileSets\tileset4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\tileset4.xnb</Output>
+      <Time>2015-06-21T11:29:41.5546189+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Pericles6.spritefont</Source>
+      <Name>Fonts\Pericles6</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Fonts\Pericles6.xnb</Output>
+      <Time>2015-06-21T11:29:41.5816204+03:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{43CCAA8E-0A99-49AB-B35C-ECA0D2E8CC4D}</ContentProjectGUID>
@@ -8,15 +134,39 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Developer\Desktop\Softuni Repositories\MANAAN-NABOO\trunk\Manaan-Naboo\GameProject\GameProjectContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Developer\Desktop\Softuni Repositories\MANAAN-NABOO\trunk\Manaan-Naboo\GameProject\GameProject\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Developer\Desktop\Softuni Repositories\MANAAN-NABOO\trunk\Manaan-Naboo\GameProject\GameProject\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Developer\Desktop\Softuni Repositories\MANAAN-NABOO\trunk\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProjectContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2011-09-01T16:22:30+03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2011-09-01T16:22:30+03:00</Value>
+      </Assembly>
+      <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2015-06-17T15:27:25.589488+03:00</Value>
+        <Value>2015-06-10T02:04:48.8611586+03:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

@@ -1,120 +1,241 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="GameProject.Archer" Collapsed="true">
-    <Position X="3" Y="3.25" Width="1.5" />
+    <Position X="1.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAACAAAAAgAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
-      <FileName>Archer.cs</FileName>
+      <HashCode>AAQAEAAACAAAAggAAAAAAAAAAAAAAAgAAAAAAAAAAAQ=</HashCode>
+      <FileName>GameObjects\Characters\Archer.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="GameProject.Character" Collapsed="true">
-    <Position X="4.25" Y="1.75" Width="1.5" />
+    <Position X="2.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAABAAAAAAAAACAAAQAE=</HashCode>
-      <FileName>Character.cs</FileName>
+      <HashCode>AAAACACIAAAAAgAAAAAAAAAAAIAAAAAAAAAACAAAQAE=</HashCode>
+      <FileName>GameObjects\Characters\Character.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="GameProject.CollectableItems" Collapsed="true">
-    <Position X="7.5" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
-      <FileName>CollectableItems.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="GameProject.Enemy" Collapsed="true">
-    <Position X="0.75" Y="1.75" Width="1.5" />
+    <Position X="9" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAAAAAgAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Enemy.cs</FileName>
+      <HashCode>AAAACACAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\Enemies\Enemy.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="GameProject.Game1" Collapsed="true">
-    <Position X="12.25" Y="0.5" Width="1.5" />
+    <Position X="23" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAEEAAAAAAAwAAAAAAAAAAAAAAAAgAAAAAAAAAAAQ=</HashCode>
+      <HashCode>ACQKEkACAAAAAwCAAAAAAACAAAAAAAhAAAiBAgAAAg4=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GameProject.GameObject" Collapsed="true">
-    <Position X="5.25" Y="0.5" Width="1.5" />
+    <Position X="9" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAYAA=</HashCode>
-      <FileName>GameObject.cs</FileName>
+      <HashCode>AAQAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAYAQ=</HashCode>
+      <FileName>GameObjects\GameObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameProject.Item" Collapsed="true">
+    <Position X="14.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\Items\Item.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="GameProject.Mage" Collapsed="true">
-    <Position X="5.25" Y="3.25" Width="1.5" />
+    <Position X="3.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAIAAAACA=</HashCode>
-      <FileName>Mage.cs</FileName>
+      <HashCode>AAQAEAAAAAAAAgAAAAAAAAAAAEAAAAAAAAAAIAAAACQ=</HashCode>
+      <FileName>GameObjects\Characters\Mage.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="GameProject.Program" Collapsed="true">
-    <Position X="14" Y="0.5" Width="1.5" />
+    <Position X="23" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GameProject.Projectile" Collapsed="true">
-    <Position X="9.75" Y="1.75" Width="1.5" />
+    <Position X="5.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAgAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Projectile.cs</FileName>
+      <HashCode>AAQAEAAAAAAAAgAgAAAAAAABAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>GameObjects\Projectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameProject.GameObjects.Enemies.EnemyBoss" Collapsed="true">
+    <Position X="8" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>GameObjects\Enemies\EnemyBoss.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameProject.GameObjects.Enemies.MinorEnemy" Collapsed="true">
+    <Position X="10.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>GameObjects\Enemies\MinorEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameProject.GameObjects.Items.Potions.HealthPotion" Collapsed="true">
+    <Position X="12.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>GameObjects\Items\Potions\HealthPotion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameProject.GameObjects.Items.Potions.ManaPotion" Collapsed="true">
+    <Position X="14.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>GameObjects\Items\Potions\ManaPotion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameProject.GameObjects.Items.Potions.Potion" Collapsed="true">
+    <Position X="14.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>GameObjects\Items\Potions\Potion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameProject.GameObjects.Items.Potions.StrenthPotion" Collapsed="true">
+    <Position X="17" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>GameObjects\Items\Potions\StrenthPotion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameProject.Map.MapCell" Collapsed="true">
+    <Position X="24.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAGIAAAAAAAAAAAAAAAAAACAAAAIgAAAgIEAAAAAA=</HashCode>
+      <FileName>GameObjects\Map\MapCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameProject.Map.MapRow" Collapsed="true">
+    <Position X="19.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>GameObjects\Map\MapRow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameProject.Map.Tile" Collapsed="true">
+    <Position X="19.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAABAABCAAAAAAAEAAAAAAAQAAABA=</HashCode>
+      <FileName>GameObjects\Map\Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameProject.Map.TileMap" Collapsed="true">
+    <Position X="21.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAgCGAAAAACAAACAAAAAQgAAAAAAAAAEJA=</HashCode>
+      <FileName>GameObjects\Map\TileMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameProject.Graphics.Camera" Collapsed="true">
+    <Position X="19.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAIAAASAAAAIGCAACAAAAAQAAAAAAAEAAAAA=</HashCode>
+      <FileName>Graphics\Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameProject.Graphics.Sprites.FrameAnimation" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CASQAAAiUAAAAAAIAAAICABBACAQAAAAEAAAAAAAAAE=</HashCode>
+      <FileName>Graphics\Sprites\FrameAnimation.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GameProject.Graphics.Sprites.MobileSprite" Collapsed="true">
+    <Position X="21.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgSAgCAMAAAAEgCxkAAICCADECAAAgEQCwAAQECAUQA=</HashCode>
+      <FileName>Graphics\Sprites\MobileSprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameProject.Graphics.Sprites.SpriteAnimation" Collapsed="true">
+    <Position X="24.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AESAAQAABArAgoAgCAIAAEACQCAAAIAAQAIABAIAYCg=</HashCode>
+      <FileName>Graphics\Sprites\SpriteAnimation.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="GameProject.ICharacter" Collapsed="true">
-    <Position X="2.75" Y="5.75" Width="1.5" />
+    <Position X="0.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAQAE=</HashCode>
-      <FileName>ICharacter.cs</FileName>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAIAAAAAAAAAACAAAQAE=</HashCode>
+      <FileName>Interfaces\ICharacter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GameProject.ICollectible" Collapsed="true">
+    <Position X="19.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ICollectible.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="GameProject.IEnemy" Collapsed="true">
-    <Position X="0.5" Y="5.75" Width="1.5" />
+    <Position X="2.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IEnemy.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IEnemy.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="GameProject.IGameObject" Collapsed="true">
-    <Position X="12.25" Y="1.75" Width="1.5" />
+    <Position X="21.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAYAA=</HashCode>
-      <FileName>IGameObject.cs</FileName>
+      <HashCode>AAQAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAYAQ=</HashCode>
+      <FileName>Interfaces\IGameObject.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="GameProject.ILivingBeing" Collapsed="true">
     <Position X="1.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ILivingBeing.cs</FileName>
+      <HashCode>AAAACACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ILivingBeing.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="GameProject.IMagic" Collapsed="true">
-    <Position X="14" Y="1.75" Width="1.5" />
+    <Position X="23" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAIAAAAAA=</HashCode>
-      <FileName>IMagic.cs</FileName>
+      <FileName>Interfaces\IMagic.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="GameProject.IShootArrows" Collapsed="true">
-    <Position X="12.25" Y="2.5" Width="1.5" />
+    <Position X="24.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
-      <FileName>IShootArrows.cs</FileName>
+      <FileName>Interfaces\IShootArrows.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Enum Name="GameProject.Direction" Collapsed="true">
-    <Position X="12.25" Y="3.5" Width="1.5" />
+  <Enum Name="GameProject.Enumerations.CollectableItemType" Collapsed="true">
+    <Position X="19.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAE=</HashCode>
+      <FileName>Enumerations\CollectableItemType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GameProject.Enumerations.Direction" Collapsed="true">
+    <Position X="21.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
       <FileName>Enumerations\Direction.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GameProject.Enumerations.ProjectileType" Collapsed="true">
+    <Position X="23" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAABAAA=</HashCode>
+      <FileName>Enumerations\ProjectileType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

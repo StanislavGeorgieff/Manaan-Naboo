@@ -9,7 +9,6 @@ namespace GameProject.Enumerations
     {
         Gold,
         Arrows,
-        ManaPotion,
-        HealthPotion
+        Potion
     }
 }

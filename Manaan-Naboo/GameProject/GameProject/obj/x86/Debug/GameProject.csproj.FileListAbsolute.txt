@@ -10,3 +10,23 @@ C:\Users\Developer\Desktop\Softuni Repositories\MANAAN-NABOO\trunk\Manaan-Naboo\
 C:\Users\Developer\Desktop\Softuni Repositories\MANAAN-NABOO\trunk\Manaan-Naboo\GameProject\GameProject\obj\x86\Debug\GameProject.pdb
 C:\Users\Developer\Desktop\Softuni Repositories\MANAAN-NABOO\trunk\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\GameProject.exe
 C:\Users\Developer\Desktop\Softuni Repositories\MANAAN-NABOO\trunk\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\GameProject.pdb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\obj\x86\Debug\GameProject.csprojResolveAssemblyReference.cache
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\obj\x86\Debug\GameProject.exe
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\obj\x86\Debug\GameProject.pdb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\Characters\mage.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\Characters\player.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\Characters\player_48x48.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\Characters\T_Vlad_Sword_Walking_48x48.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\Characters\WhiteMage.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\FireBombSheet.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\hilight.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\mousemap.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\slopemaps.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\tileset.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\tileset2.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\tileset3.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Textures\TileSets\tileset4.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\Content\Fonts\Pericles6.xnb
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\GameProject.exe
+C:\Users\konsantin\Desktop\Manaan-Naboo\GameProject\GameProject\bin\x86\Debug\GameProject.pdb
